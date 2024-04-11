@@ -13,7 +13,7 @@ class paketModel extends Model
 
     protected $primaryKey = 'id_paket';
 
-    protected $fillable = ['nama_paket', 'deskripsi', 'harga_paket', 'tanggal_berangkat', 'tanggal_pulang', 'durasi', 'lokasi_bernagkat', 'lokasi_tujuan', 'id_hotels', 'id_transportasi', 'id_destinasi', ];
+    protected $fillable = ['nama_paket', 'deskripsi', 'harga_paket', 'id_hotels', 'id_transportasi', 'id_destinasi', ];
 
     public function hotel()
     {

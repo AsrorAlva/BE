@@ -9,6 +9,7 @@ use App\Http\Controllers\hotelsController;
 use App\Http\Controllers\TransportasiController;
 use App\Http\Controllers\destinasiController;
 use App\Http\Controllers\paketController;
+use App\Http\Controllers\paket2Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     //Hotel
 
     Route::get('/hotels', [hotelsController::class, 'index']); //Read All
+    Route::post('/hotel/create', [hotelsController::class, 'createHotel']); //CreateHotel
 
 
 
@@ -61,6 +63,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::get('/transportasi', [TransportasiController::class, 'index']); //Read All
     Route::get('/transportasi/{jenis}', [TransportasiController::class, 'berdasarkanJenis']); //jenis
     Route::get('/transportasi/harga/{harga}', [TransportasiController::class, 'harga']); //harga
+    Route::post('/transport/create', [TransportasiController::class, 'createTransport']); //CreateHotel
 
 
     //destinasi
@@ -71,7 +74,19 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     //paket
 
     //buatpaket
-    Route::post('/pakets', [paketController::class, 'buatpaket']);
+    Route::post('/paket/generate', [paketController::class, 'membuatpaket']);
+
+
+
+    //paket2
+    Route::post('/paket/buat', [paket2Controller::class, 'create']); //create
+    Route::get('/paket', [paket2Controller::class, 'read']); //Read All
+    Route::put('updatepaket/{id}', [paket2Controller::class, 'update']); // Update
+    Route::get('paket/{id}', [paket2Controller::class, 'show']); // Read Single
+    
+
+
+
 
 
 
