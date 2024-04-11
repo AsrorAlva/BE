@@ -13,4 +13,9 @@ class Hotel extends Model
     protected $primaryKey = 'id_hotels';
 
     protected $fillable = ['nama_hotel', 'kota', 'alamat', 'harga', 'rating', 'gambar',];
+
+    public function pakets()
+    {
+        return $this->hasMany(PaketModel::class, 'id_hotels');
+    }
 }

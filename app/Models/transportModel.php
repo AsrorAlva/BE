@@ -13,4 +13,10 @@ class transportModel extends Model
     protected $primaryKey = 'id_transportasi';
 
     protected $fillable = ['nama_transportasi', 'jenis_transportasi', 'berangkat', 'tujuan', 'harga', 'jam_keberangkatan', 'jam_kedatangan',];
+
+
+    public function pakets()
+    {
+        return $this->hasMany(PaketModel::class, 'id_transportasi');
+    }
 }

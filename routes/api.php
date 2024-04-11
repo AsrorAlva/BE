@@ -7,6 +7,8 @@ use App\Http\Controllers\AgenController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\hotelsController;
 use App\Http\Controllers\TransportasiController;
+use App\Http\Controllers\destinasiController;
+use App\Http\Controllers\paketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,18 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::get('/transportasi', [TransportasiController::class, 'index']); //Read All
     Route::get('/transportasi/{jenis}', [TransportasiController::class, 'berdasarkanJenis']); //jenis
     Route::get('/transportasi/harga/{harga}', [TransportasiController::class, 'harga']); //harga
+
+
+    //destinasi
+    Route::get('/destinasi', [destinasiController::class, 'index']); //Read All
+
+
+
+    //paket
+
+    //buatpaket
+    Route::post('/pakets', [paketController::class, 'buatpaket']);
+
 
 
 });
