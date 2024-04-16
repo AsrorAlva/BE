@@ -61,10 +61,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 
     //transport
     Route::get('/transportasi', [TransportasiController::class, 'index']); //Read All
-    Route::get('/transportasi/{jenis}', [TransportasiController::class, 'berdasarkanJenis']); //jenis
-    Route::get('/transportasi/harga/{harga}', [TransportasiController::class, 'harga']); //harga
     Route::post('/transport/create', [TransportasiController::class, 'createTransport']); //CreateHotel
-
+    Route::put('updateTransport/{id}', [TransportasiController::class, 'updateTransport']); // Update
+    Route::get('transport/{id}', [TransportasiController::class, 'show']); // Read Single
+    Route::delete('transport/{id}', [TransportasiController::class, 'deleteTransport']); // Read Single
 
     //destinasi
     Route::get('/destinasi', [destinasiController::class, 'index']); //Read All
@@ -82,7 +82,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('/paket/buat', [paket2Controller::class, 'create']); //create
     Route::get('/paket', [paket2Controller::class, 'read']); //Read All
     Route::put('updatepaket/{id}', [paket2Controller::class, 'update']); // Update
+    // Route::put('updatepaket/{id}', [paket2Controller::class, 'edit']); // Update
     Route::get('paket/{id}', [paket2Controller::class, 'show']); // Read Single
+
+    Route::get('caripaket', [paket2Controller::class, 'paketForUser']); // Read Single
     
 
 
