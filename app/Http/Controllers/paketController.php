@@ -63,10 +63,23 @@ class paketController extends Controller
     {
         // Hilangkan karakter non-numeric (seperti "Rp" atau "IDR")
         $numericHarga = preg_replace("/[^0-9]/", "", $harga);
-        
+
         // Konversi ke format numerik
         $numericHarga = (float) $numericHarga;
 
         return $numericHarga;
+    }
+
+    //read data
+    public function index()
+    {
+        $paket = paketModel::all();
+        return response()->json($paket);
+    }
+
+    public function show($id)
+    {
+        $paket = paketModel::findOrFail($id);
+        return response()->json($paket);
     }
 }

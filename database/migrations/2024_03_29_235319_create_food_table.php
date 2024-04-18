@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('food', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kuliner');
-            $table->decimal('harga_min', 10, 2);
-            $table->decimal('harga_max', 10, 2);
-            $table->integer('rating')->nullable();
             $table->string('alamat');
+            $table->string('nama_kuliner');
+            $table->string('rating')->nullable();
+            $table->string('keterangan');
+            $table->string('tutup');
             $table->timestamps();
         });
     }

@@ -15,66 +15,66 @@ class paket2Controller extends Controller
 {
     //create data 
     public function create(Request $request)
-{
-    // Validasi
-    $validator = Validator::make($request->all(), [
-        'nama_paket' => 'required|string',
-        'deskripsi' => 'required|string',
-        'destinasi' => 'required|string',
-        'transportasi' => 'required|string',
-        'akomodasi' => 'required|string',
-        'harga_paket' => 'required|string',
-        'fasilitas' => 'required|string',
-        'kuliner' => 'required|string',
-        'image' => 'nullable|array',
-        'image.*' => 'nullable|mimes:png,jpg,jpeg,webp|max:2048',
-        'rating' => 'required|string',
-    ]);
+    {
+        // Validasi
+        $validator = Validator::make($request->all(), [
+            'nama_paket' => 'required|string',
+            'deskripsi' => 'required|string',
+            'destinasi' => 'required|string',
+            'transportasi' => 'required|string',
+            'akomodasi' => 'required|string',
+            'harga_paket' => 'required|string',
+            'fasilitas' => 'required|string',
+            'kuliner' => 'required|string',
+            'image' => 'nullable|array',
+            'image.*' => 'nullable|mimes:png,jpg,jpeg,webp|max:2048',
+            'rating' => 'required|string',
+        ]);
 
-    // Jika validasi gagal, kembalikan respons dengan pesan kesalahan
-    if ($validator->fails()) {
-        return response()->json(['message' => 'Validasi gagal', 'errors' => $validator->errors()], 422);
-    }
-
-    // Persiapkan data untuk disimpan ke dalam database
-    $data = [
-        'nama_paket' => $request->nama_paket,
-        'deskripsi' => $request->deskripsi,
-        'destinasi' => $request->destinasi,
-        'transportasi' => $request->transportasi,
-        'akomodasi' => $request->akomodasi,
-        'harga_paket' => $request->harga_paket,
-        'fasilitas' => $request->fasilitas,
-        'kuliner' => $request->kuliner,
-        'rating' => $request->rating,
-    ];
-
-    // Jika ada file gambar diunggah, simpan gambarnya dan tambahkan nama gambar ke data
-    if ($request->hasFile('image')) {
-        $files = $request->file('image');
-        $filenames = [];
-        $path = 'uploads/';
-
-        foreach ($files as $file) {
-            $filename = time(). '.'. $file->getClientOriginalExtension();
-            $file->move($path, $filename);
-            $filenames[] = $filename;
+        // Jika validasi gagal, kembalikan respons dengan pesan kesalahan
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Validasi gagal', 'errors' => $validator->errors()], 422);
         }
 
-        $data['image'] = json_encode($filenames);
+        // Persiapkan data untuk disimpan ke dalam database
+        $data = [
+            'nama_paket' => $request->nama_paket,
+            'deskripsi' => $request->deskripsi,
+            'destinasi' => $request->destinasi,
+            'transportasi' => $request->transportasi,
+            'akomodasi' => $request->akomodasi,
+            'harga_paket' => $request->harga_paket,
+            'fasilitas' => $request->fasilitas,
+            'kuliner' => $request->kuliner,
+            'rating' => $request->rating,
+        ];
+
+        // Jika ada file gambar diunggah, simpan gambarnya dan tambahkan nama gambar ke data
+        if ($request->hasFile('image')) {
+            $files = $request->file('image');
+            $filenames = [];
+            $path = 'uploads/';
+
+            foreach ($files as $file) {
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $filename);
+                $filenames[] = $filename;
+            }
+
+            $data['image'] = json_encode($filenames);
+        }
+
+        // Simpan data ke dalam database
+        $paket = paket2Model::create($data);
+
+        // Jika berhasil disimpan, kirim respons berhasil
+        if ($paket) {
+            return response()->json(['message' => 'Paket berhasil dibuat', 'data' => $paket], 201);
+        }
+
+        // Jika gagal menyimpan, kirim respons gagal
+        return response()->json(['message' => 'Gagal membuat paket'], 500);
     }
-
-    // Simpan data ke dalam database
-    $paket = paket2Model::create($data);
-
-    // Jika berhasil disimpan, kirim respons berhasil
-    if ($paket) {
-        return response()->json(['message' => 'Paket berhasil dibuat', 'data' => $paket], 201);
-    }
-
-    // Jika gagal menyimpan, kirim respons gagal
-    return response()->json(['message' => 'Gagal membuat paket'], 500);
-}
 
 
     //read

@@ -55,7 +55,11 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     //Hotel
 
     Route::get('/hotels', [hotelsController::class, 'index']); //Read All
-    Route::post('/hotel/create', [hotelsController::class, 'createHotel']); //CreateHotel
+    // Route::post('/hotel/create', [hotelsController::class, 'createHotel']); //CreateHotel
+    Route::get('hotels/{id}', [hotelsController::class, 'show']); // Read Single
+    Route::post('hotels/buat', [hotelsController::class, 'create']); //create
+    Route::put('hotels/edit/{id}', [hotelsController::class,'update']); //Update
+    Route::delete('hotels/hapus/{id}',[hotelsController::class ,'destroy']);//Delete
 
 
 
@@ -72,6 +76,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 
 
     //paket
+    Route::get('paket', [paketController::class, 'index']); //Read All
+    Route::get('paket/{id}', [paketController::class, 'show']); // Read Single
 
     //buatpaket
     Route::post('/paket/generate', [paketController::class, 'membuatpaket']);

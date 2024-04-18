@@ -48,8 +48,8 @@ class TransportasiController extends Controller
             'berangkat' => $request->berangkat,
             'tujuan' => $request->tujuan,
             'harga' => $request->harga,
-            'jam_keberangkatan' => $request->jam_keberangkatan.':00',
-            'jam_kedatangan' => $request->jam_kedatangan.':00'
+            'jam_keberangkatan' => $request->jam_keberangkatan . ':00',
+            'jam_kedatangan' => $request->jam_kedatangan . ':00'
         ]);
 
         // Jika transportasi berhasil dibuat, kembalikan respons berhasil
@@ -62,61 +62,45 @@ class TransportasiController extends Controller
     }
 
     // Mengupdate data transportasi
-    public function updateTransport(Request $request, $id): \Illuminate\Http\JsonResponse
-    {
-        // Cari transportasi berdasarkan id yang dikirim
-        $transportasi = transportModel::find($id);
+    // public function update(Request $request, $id)
+    // {
+    //     $transportasi = transportModel::find($id);
 
-        // Jika transportasi tidak ditemukan, kembalikan respons not found
-        if (!$transportasi) {
-            return response()->json(['message' => 'Transportasi tidak ditemukan'], 404);
-        }
+    //     if (!$transportasi) {
+    //         return response()->json(['message' => 'Data hotel tidak ditemukan'], 404);
+    //     }
+    //     // Validasi data yang dikirim
+    //     $validator = Validator::make($request->all(), [
+    //         'nama_transportasi' => 'sometimes',
+    //         'jenis_transportasi' => 'sometimes',
+    //         'berangkat' => 'sometimes',
+    //         'tujuan' => 'sometimes',
+    //         'harga' => 'required',
+    //         'jam_keberangkatan' => 'sometimes',
+    //         'jam_kedatangan' => 'sometimes'
+    //     ]);
 
-        // Validasi data yang diterima
-        $validator = Validator::make($request->all(), [
-            'nama_transportasi' => 'required|string',
-            'jenis_transportasi' => 'required|string',
-            'berangkat' => 'required|string',
-            'tujuan' => 'required|string',
-            'harga' => 'required|string',
-            'jam_keberangkatan' => 'required|string',
-            'jam_kedatangan' => 'required|string',
-        ]);
+    //     if ($validator->fails()) {
+    //         return response()->json([
+    //             'message' => 'Parameter tidak valid',
+    //             'errors' => $validator->errors()
+    //         ], 422);
+    //     }
 
-        // Jika validasi gagal, kembalikan respons invalid parameter
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Invalid Parameter',
-                'errors' => $validator->errors()
-            ], 422);
-        }
+    //     $transportasi->nama_transportasi = $request->nama_transportasi ?? $transportasi->nama_transportasi;
+    //     $transportasi->jenis_transportasi = $request->jenis_transportasi ?? $transportasi->jenis_transportasi;
+    //     $transportasi->berangkat = $request->berangkat ??  $transportasi->berangkat;
+    //     $transportasi->tujuan = $request->tujuan ?? $transportasi->tujuan;
+    //     $transportasi->jam_keberangkatan = $request->jam_keberangkatan ?? $transportasi->jam_keberangkatan;
+    //     $transportasi->jam_kedatangan = $request->jam_kedatangan ?? $transportasi->jam_kedatangan;
 
-        // Proses simpan data baru ke database
-        try {
-            // Mengupdate data transportasi
-            $transportasi->update([
-                'nama_transportasi' => $request->nama_transportasi,
-                'jenis_transportasi' => $request->jenis_transportasi,
-                'berangkat' => $request->berangkat,
-                'tujuan' => $request->tujuan,
-                'harga' => $request->harga,
-                'jam_keberangkatan' => $request->jam_keberangkatan.':00',
-                'jam_kedatangan' => $request->jam_kedatangan.':00'
-            ]);
+    //     $transportasi->save();
 
-            // Kembalikan responsuccess dan data transportasi yang sudah diedit
-            return response()->json([
-                'message' => 'Data Transportasi Berhasil Diperbarui',
-                'data' => $transportasi
-            ], 200);
-        } catch (\Exception $e) {
-            // Kembalikan respon internal error jika terjadi error
-            return response()->json([
-                'message' => 'Internal Error',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
+    //     return response()->json([
+    //         'message' => 'Transportasi berhasil diperbarui',
+    //         'data' => $transportasi
+    //     ], 200);
+    // }
 
     //delete transport
     public function deleteTransport($id)
