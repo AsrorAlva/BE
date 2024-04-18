@@ -12,7 +12,7 @@ class destinasiModel extends Model
 
     protected $primaryKey = 'id_destinasi';
 
-    protected $fillable = ['nama_destinasi', 'alamat', 'pulau', 'rating', 'keterangan',];
+    protected $fillable = ['nama_destinasi', 'alamat', 'kota', 'rating', 'keterangan',];
 
     public function pakets()
     {

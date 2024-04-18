@@ -13,7 +13,7 @@ class paketModel extends Model
 
     protected $primaryKey = 'id_paket';
 
-    protected $fillable = ['nama_paket', 'deskripsi', 'harga_paket', 'id_hotels', 'id_transportasi', 'id_destinasi', ];
+    protected $fillable = ['nama_paket', 'deskripsi', 'transportasi', 'jenis_transportasi', 'hotel', 'food', 'kota', 'harga_paket', 'id_hotels', 'id_transportasi','id_food', 'id_destinasi', ];
 
     public function hotel()
     {
@@ -28,5 +28,10 @@ class paketModel extends Model
     public function transportasi()
     {
         return $this->belongsTo(transportModel::class, 'id_transportasi');
+    }
+
+    public function food()
+    {
+        return $this->belongsTo(foodModel::class, 'id_food');
     }
 }
